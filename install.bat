@@ -47,14 +47,20 @@ echo.
 echo Installing dependencies...
 pip install -r requirements.txt
 
-:: Install Qwen3-TTS
+:: Initialize submodule & install Qwen3-TTS
 echo.
-echo Installing Qwen3-TTS...
+echo Initializing Qwen3-TTS submodule...
+git submodule update --init --recursive 2>nul
+
 if exist Qwen3-TTS\pyproject.toml (
+    echo Installing Qwen3-TTS...
     pip install -e Qwen3-TTS
 ) else (
-    echo WARNING: Qwen3-TTS submodule not found.
-    echo   Run: git submodule update --init --recursive
+    echo ERROR: Qwen3-TTS submodule could not be initialized.
+    echo   Make sure you cloned with: git clone --recurse-submodules ^<url^>
+    echo   Or run manually: git submodule update --init --recursive
+    pause
+    exit /b 1
 )
 
 :: Create dirs

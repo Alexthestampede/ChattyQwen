@@ -81,15 +81,19 @@ echo ""
 echo "Installing dependencies..."
 pip install -r "$ROOT/requirements.txt"
 
-# --- Install Qwen3-TTS from submodule ---
+# --- Initialize submodule & install Qwen3-TTS ---
 echo ""
-echo "Installing Qwen3-TTS..."
-if [ -d "$ROOT/Qwen3-TTS" ] && [ -n "$(ls -A "$ROOT/Qwen3-TTS" 2>/dev/null)" ]; then
+echo "Initializing Qwen3-TTS submodule..."
+git submodule update --init --recursive 2>/dev/null || true
+
+if [ -d "$ROOT/Qwen3-TTS" ] && [ -f "$ROOT/Qwen3-TTS/pyproject.toml" ]; then
+    echo "Installing Qwen3-TTS..."
     pip install -e "$ROOT/Qwen3-TTS"
 else
-    echo "WARNING: Qwen3-TTS submodule not found or empty."
-    echo "  Run: git submodule update --init --recursive"
-    echo "  Then re-run this script."
+    echo "ERROR: Qwen3-TTS submodule could not be initialized."
+    echo "  Make sure you cloned with: git clone --recurse-submodules <url>"
+    echo "  Or run manually: git submodule update --init --recursive"
+    exit 1
 fi
 
 # --- Platform-specific cleanup ---
