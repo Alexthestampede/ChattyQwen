@@ -1,0 +1,22 @@
+{
+  "name": "ChattyQwen",
+  "short_name": "ChattyQwen",
+  "description": "Qwen3-TTS Web UI - Text to Speech with Custom Voice, Voice Clone, and Voice Design",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/static/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
