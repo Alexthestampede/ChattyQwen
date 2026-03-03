@@ -22,6 +22,8 @@
   --radius-sm: 6px;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
 }
 
 html { font-size: 16px; }
@@ -35,18 +37,21 @@ body {
 
 /* Nav */
 .nav {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: var(--nav-height);
-  padding: 0 16px;
+  height: calc(var(--nav-height) + var(--safe-top));
+  padding: 0 calc(16px + var(--safe-right)) 0 calc(16px + var(--safe-left));
   padding-top: var(--safe-top);
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
-  backdrop-filter: blur(12px);
+  background: rgba(10, 10, 10, 0.7);
+  border-bottom: 1px solid rgba(42, 42, 42, 0.5);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
 }
 .nav-left, .nav-right { display: flex; align-items: center; gap: 10px; }
 .nav-title { font-size: 1.1rem; font-weight: 600; }
@@ -55,8 +60,7 @@ body {
 .main {
   max-width: 640px;
   margin: 0 auto;
-  padding: 16px;
-  padding-bottom: calc(16px + var(--safe-bottom));
+  padding: calc(var(--nav-height) + var(--safe-top) + 16px) calc(16px + var(--safe-right)) calc(16px + var(--safe-bottom)) calc(16px + var(--safe-left));
 }
 
 /* Cards */
@@ -385,8 +389,8 @@ body {
 /* Toast */
 #toast-container {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: calc(20px + var(--safe-bottom));
+  right: calc(20px + var(--safe-right));
   z-index: 1000;
   display: flex;
   flex-direction: column;
